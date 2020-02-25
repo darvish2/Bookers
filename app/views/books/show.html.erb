@@ -1,25 +1,35 @@
-<%=  flash[:notice] %>
+<div class='container'>
+<div class="row">
+    <div class="col-xs-3">
 
 
+        <%= render 'users/b1' , user: @user %>
 
-<html>
-<head>
-
-
-
-<p>
-  <strong>Title:</strong>
-<%= @book.title %>
-</p>
-
-<p>
-  <strong>Body:</strong>
-<%= @book.body %>
-</p>
-
-<%= link_to "edit", edit_book_path(@book.id) %> |
-<a class="back" href="/books">Back</a>
+        <h2>New book</h2>
 
 
+    </div>
 
-</body></html>
+    <div class="col-xs-9">
+        <h2>Book detail</h2>
+
+        <table class="table">
+                <tr>
+                    <td>
+                        <%= link_to (@book.user) do %>
+
+                        <%= @book.user.name %>
+                        <% end %>
+                    </td>
+                    <td><%= link_to @book.title, @book %></td>
+                    <td><%= @book.body %></td>
+
+                    <% if @user == current_user %>
+                    <td><%= link_to "Edit",edit_book_path(@book), class: "btn-sm btn-success edit_book_#{@book.id}" %></td>
+                    <td><%= link_to "Destroy",@book, method: :delete, data: {confirm: "本当に削除してもよろしいですか？"}, class: "btn-sm btn-danger destroy_book_#{@book.id}" %></td>
+                    <% end %>
+                </tr>
+            </table>
+
+    </div>
+</div>
